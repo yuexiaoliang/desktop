@@ -1,0 +1,23 @@
+{
+  "id": "3747294",
+  "name": "desktop",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "21096868",
+      "name": "vimeo",
+      "font_class": "vimeo",
+      "unicode": "ece6",
+      "unicode_decimal": 60646
+    },
+    {
+      "icon_id": "32648572",
+      "name": "git",
+      "font_class": "git",
+      "unicode": "ece7",
+      "unicode_decimal": 60647
+    }
+  ]
+}

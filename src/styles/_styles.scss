@@ -1,0 +1,24 @@
+.s-container {
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+}
+
+.s-scrollbar {
+  $w: 4px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: $w;
+    height: $w;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: $w / 2;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: $w / 2;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}

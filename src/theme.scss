@@ -1,0 +1,28 @@
+/* theme */
+:root {
+  --bg-color: #0d1117;
+  --color: #83d4ff;
+  --color-active: yellow;
+  --border-color: #{rgba($color: #83d4ff, $alpha: 0.3)};
+}
+
+/* layout */
+:root {
+  --layout--bg-color: var(--bg-color);
+  --layout--color: var(--color);
+  --layout--aside-right-width: 250px;
+  --layout--aside-left-width: calc(var(--desktop-cell-width) * 2 + 30px);
+  --layout--footer-height: 190px;
+}
+
+// quick manual
+:root {
+  --quick-manual--color: var(--color);
+  --quick-manual--color-active: var(--color-active);
+}
+
+// area
+:root {
+  --task-bar-height: 48px;
+  --desktop-cell-width: 75px;
+}
