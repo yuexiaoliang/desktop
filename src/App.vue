@@ -101,6 +101,7 @@ import QuickManual from '@/components/QuickManual.vue';
     @extend .s-container;
     margin: 0 0 10px;
     height: var(--layout--footer-height);
+    background: url('@/assets/images/cell-bg.png');
   }
 }
 </style>

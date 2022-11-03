@@ -14,11 +14,11 @@
   }
 
   &::-webkit-scrollbar-track {
-    border-radius: $w / 2;
+    border-radius: $w;
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: $w / 2;
+    border-radius: $w;
     background-color: rgba(255, 255, 255, 0.2);
   }
 }
