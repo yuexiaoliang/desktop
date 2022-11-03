@@ -32,15 +32,15 @@ jobs:
         run: pnpm install
 
       - name: Build documentation site
-        run: pnpm docs:build
+        run: pnpm build
 
       - name: Create CNAME
-        run: cd docs && echo "desktop.yuexiaoliang.com" > CNAME
+        run: cd dist && echo "desktop.yuexiaoliang.com" > CNAME
 
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2.2.0
         with:
           target_branch: gh-pages
-          build_dir: docs
+          build_dir: dist
         env:
           GH_PAT: ${{ secrets.ACTION_TOKEN }}
