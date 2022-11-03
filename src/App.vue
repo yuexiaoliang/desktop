@@ -85,7 +85,7 @@ import QuickManual from '@/components/QuickManual.vue';
 
     .logo {
       display: block;
-      width: 70px;
+      width: 150px;
       opacity: 0.2;
       transition: opacity 0.3s;
     }
