@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import Icon from '@/components/Icon.vue';
-import { SlideInOut, FadeInOut } from 'vue3-transitions';
+import { SlideInOut } from 'vue3-transitions';
 import { ref } from 'vue';
+
+import Doc from './Doc.vue';
+import { vscodeVim, git } from '@/data/index';
 
 interface TabItem {
   title: string;
+  type: string;
   icon: string;
 }
 const tabList: TabItem[] = [
-  { title: 'VSCodeVim', icon: 'vimeo' },
-  { title: 'Git', icon: 'git' }
+  { title: 'Git Command', type: 'git', icon: 'git' },
+  { title: 'VSCodeVim Command', type: 'vscodeVim', icon: 'vimeo' }
 ];
 
 const currentTab = ref<TabItem>(tabList[0]);
@@ -21,26 +25,26 @@ const onTabItemClick = (tab: TabItem) => {
 <template>
   <div class="quick-manual">
     <!-- @ts-ignore -->
-    <SlideInOut group entry="left" exit="right" :duration="{ enter: 800, leave: 400 } as any" tag="div" class="content-wrap">
-      <section class="content" v-if="currentTab.title === 'Git'">
+    <SlideInOut group entry="left" exit="right" :duration="{ enter: 800, leave: 300 } as any" tag="div" class="content-wrap">
+      <section class="content" v-if="currentTab.type === 'git'">
         <h2 class="title">{{ currentTab.title }}</h2>
 
         <div class="body">
-          <img src="~@/assets/docs/Git.jpg" alt="Git" />
+          <Doc :data="git"></Doc>
         </div>
       </section>
 
-      <section class="content" v-if="currentTab.title === 'VSCodeVim'">
+      <section class="content" v-if="currentTab.type === 'vscodeVim'">
         <h2 class="title">{{ currentTab.title }}</h2>
 
         <div class="body">
-          <img src="~@/assets/docs/VSCodeVim.png" alt="VSCodeVim" />
+          <Doc :data="vscodeVim"></Doc>
         </div>
       </section>
     </SlideInOut>
 
     <nav class="tabbar">
-      <span v-for="item in tabList" :key="item.title" class="tabbar__item" :class="{ 'tabbar__item--active': currentTab.title === item.title }" @click="onTabItemClick(item)">
+      <span v-for="item in tabList" :key="item.title" class="tabbar__item" :class="{ 'tabbar__item--active': currentTab.type === item.type }" @click="onTabItemClick(item)">
         <Icon class="icon" :name="item.icon"></Icon>
       </span>
     </nav>
@@ -66,14 +70,26 @@ const onTabItemClick = (tab: TabItem) => {
     height: 100%;
 
     .title {
+      position: relative;
       margin: 0;
-      height: 50px;
-      line-height: 50px;
-      font-size: 20px;
+      padding: 15px 0 6px;
+      font-size: 18px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 30px;
+        height: 3px;
+        background-color: var(--color-stress);
+        border-radius: 3px;
+      }
     }
 
     .body {
       @extend .s-scrollbar;
+      margin-top: 20px;
       height: calc(100% - 50px);
 
       img {

@@ -2,7 +2,8 @@
 :root {
   --bg-color: #0d1117;
   --color: #83d4ff;
-  --color-active: yellow;
+  --color-stress: #ffa655;
+  --color-active: var(--color-stress);
   --border-color: #{rgba($color: #83d4ff, $alpha: 0.3)};
 }
 
@@ -15,14 +16,21 @@
   --layout--footer-height: 190px;
 }
 
+// area
+:root {
+  --task-bar-height: 48px;
+  --desktop-cell-width: 75px;
+}
+
 // quick manual
 :root {
   --quick-manual--color: var(--color);
   --quick-manual--color-active: var(--color-active);
 }
 
-// area
+// doc
 :root {
-  --task-bar-height: 48px;
-  --desktop-cell-width: 75px;
+  --doc--command-color: var(--color);
+  --doc--desc-color: var(--color-stress);
+  --doc--line-color: #fff;
 }
