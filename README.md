@@ -2,4 +2,4 @@
 
 ### 效果图
 
-![Desktop](./Desktop.png '效果图')
+![Desktop](./desktop.png '效果图')
