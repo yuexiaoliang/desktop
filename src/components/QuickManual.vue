@@ -20,7 +20,8 @@ const onTabItemClick = (tab: TabItem) => {
 
 <template>
   <div class="quick-manual">
-    <SlideInOut group entry="left" exit="right" :duration="{ enter: 800, leave: 400 }" tag="div" class="content-wrap">
+    <!-- @ts-ignore -->
+    <SlideInOut group entry="left" exit="right" :duration="{ enter: 800, leave: 400 } as any" tag="div" class="content-wrap">
       <section class="content" v-if="currentTab.title === 'Git'">
         <h2 class="title">{{ currentTab.title }}</h2>
 
