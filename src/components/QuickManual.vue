@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Icon from '@/components/Icon.vue';
-import { SlideInOut } from 'vue3-transitions';
 import { ref } from 'vue';
 
 import Doc from './Doc.vue';
@@ -25,7 +24,7 @@ const onTabItemClick = (tab: TabItem) => {
 <template>
   <div class="quick-manual">
     <!-- @ts-ignore -->
-    <SlideInOut group entry="left" exit="right" :duration="{ enter: 800, leave: 300 } as any" tag="div" class="content-wrap">
+    <div class="content-wrap">
       <section class="content" v-if="currentTab.type === 'git'">
         <h2 class="title">{{ currentTab.title }}</h2>
 
@@ -41,7 +40,7 @@ const onTabItemClick = (tab: TabItem) => {
           <Doc :data="vscodeVim"></Doc>
         </div>
       </section>
-    </SlideInOut>
+    </div>
 
     <nav class="tabbar">
       <span v-for="item in tabList" :key="item.title" class="tabbar__item" :class="{ 'tabbar__item--active': currentTab.type === item.type }" @click="onTabItemClick(item)">

@@ -10,8 +10,7 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
-    "vue": "^3.2.41",
-    "vue3-transitions": "^1.0.0"
+    "vue": "^3.2.41"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
