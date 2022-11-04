@@ -12,8 +12,8 @@ interface TabItem {
   icon: string;
 }
 const tabList: TabItem[] = [
-  { title: 'Git Command', type: 'git', icon: 'git' },
-  { title: 'VSCodeVim Command', type: 'vscodeVim', icon: 'vimeo' }
+  { title: 'VSCodeVim Command', type: 'vscodeVim', icon: 'vimeo' },
+  { title: 'Git Command', type: 'git', icon: 'git' }
 ];
 
 const currentTab = ref<TabItem>(tabList[0]);
