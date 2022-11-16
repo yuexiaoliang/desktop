@@ -1,19 +1,23 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import logo from '/logo.svg';
 import QuickManual from '@/components/QuickManual.vue';
+import Notes from './components/Notes.vue';
+
+const todo = ref(['Score Next', '文档补充']);
 </script>
 
 <template>
   <div class="layout">
-    <aside class="layout__aside layout__aside--left">
-      <div class="cell" v-for="i in 24" :key="i"></div>
-    </aside>
+    <aside class="layout__aside layout__aside--left"></aside>
 
     <div class="layout__main">
       <div class="layout__content">
         <img class="logo" :src="logo" alt="logo" />
       </div>
-      <footer class="layout__footer"></footer>
+      <footer class="layout__footer">
+        <Notes class="notes" :list="todo"></Notes>
+      </footer>
     </div>
 
     <aside class="layout__aside layout__aside--right">
@@ -37,34 +41,13 @@ import QuickManual from '@/components/QuickManual.vue';
       display: flex;
       align-content: flex-start;
       flex-wrap: wrap;
+      background: url('@/assets/images/cell-bg.png');
     }
 
     &--right {
       @extend .s-container;
       margin: 10px;
       width: var(--layout--aside-right-width);
-    }
-
-    .cell {
-      @extend .s-container;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 10px 0 0 10px;
-      width: var(--desktop-cell-width);
-      height: var(--desktop-cell-width);
-      border-style: dashed;
-
-      &::after {
-        $w: calc(100% - 10px);
-        content: '';
-        display: block;
-        width: $w;
-        height: $w;
-        border-radius: 50%;
-        border: 1px dashed var(--border-color);
-        opacity: 0.6;
-      }
     }
   }
 
@@ -99,9 +82,13 @@ import QuickManual from '@/components/QuickManual.vue';
 
   &__footer {
     @extend .s-container;
+    display: flex;
     margin: 0 0 10px;
     height: var(--layout--footer-height);
-    background: url('@/assets/images/cell-bg.png');
+
+    .notes {
+      margin-left: auto;
+    }
   }
 }
 </style>

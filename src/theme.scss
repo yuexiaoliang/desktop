@@ -11,15 +11,15 @@
 :root {
   --layout--bg-color: var(--bg-color);
   --layout--color: var(--color);
-  --layout--aside-right-width: 250px;
-  --layout--aside-left-width: calc(var(--desktop-cell-width) * 2 + 30px);
+  --layout--aside-right-width: 350px;
+  --layout--aside-left-width: calc(var(--desktop-cell-width) * 1);
   --layout--footer-height: 190px;
 }
 
 // area
 :root {
   --task-bar-height: 48px;
-  --desktop-cell-width: 75px;
+  --desktop-cell-width: 76px;
 }
 
 // quick manual
