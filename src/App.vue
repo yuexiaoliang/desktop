@@ -38,6 +38,7 @@ const todo = ref(['Score Next', '文档补充']);
   &__aside {
     &--left {
       width: var(--layout--aside-left-width);
+      margin-bottom: 10px;
       display: flex;
       align-content: flex-start;
       flex-wrap: wrap;
