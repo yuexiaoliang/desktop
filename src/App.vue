@@ -4,7 +4,7 @@ import logo from '/logo.svg';
 import QuickManual from '@/components/QuickManual.vue';
 import Notes from './components/Notes.vue';
 
-const todo = ref(['Score Next', '文档补充', '完善简历']);
+const todo = ref(['Score Next', '文档补充', '完善简历', '图表库']);
 </script>
 
 <template>
