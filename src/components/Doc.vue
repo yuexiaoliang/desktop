@@ -36,6 +36,9 @@ withDefaults(defineProps<DocProps>(), {
 
 <style lang="scss" scoped>
 .doc {
+  margin-top: 20px;
+  padding: 0 10px;
+
   .list {
     margin: 0;
     padding: 0;

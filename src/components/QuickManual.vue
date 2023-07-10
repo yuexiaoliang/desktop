@@ -4,6 +4,7 @@ import { ref } from 'vue';
 
 import Doc from './Doc.vue';
 import { vscodeVim, git } from '@/data/index';
+import Okx from './Okx.vue';
 
 interface TabItem {
   title: string;
@@ -11,8 +12,9 @@ interface TabItem {
   icon: string;
 }
 const tabList: TabItem[] = [
+  { title: 'OKX', type: 'okx', icon: 'web__bitebi' },
   { title: 'VSCodeVim Command', type: 'vscodeVim', icon: 'vimeo' },
-  { title: 'Git Command', type: 'git', icon: 'git' }
+  { title: 'Git Command', type: 'git', icon: 'git' },
 ];
 
 const currentTab = ref<TabItem>(tabList[0]);
@@ -40,10 +42,19 @@ const onTabItemClick = (tab: TabItem) => {
           <Doc :data="vscodeVim"></Doc>
         </div>
       </section>
+
+      <section class="content" v-if="currentTab.type === 'okx'">
+        <h2 class="title">{{ currentTab.title }}</h2>
+
+        <div class="body">
+          <Okx></Okx>
+        </div>
+      </section>
     </div>
 
     <nav class="tabbar">
-      <span v-for="item in tabList" :key="item.title" class="tabbar__item" :class="{ 'tabbar__item--active': currentTab.type === item.type }" @click="onTabItemClick(item)">
+      <span v-for="item in tabList" :key="item.title" class="tabbar__item"
+        :class="{ 'tabbar__item--active': currentTab.type === item.type }" @click="onTabItemClick(item)">
         <Icon class="icon" :name="item.icon"></Icon>
       </span>
     </nav>
@@ -62,7 +73,7 @@ const onTabItemClick = (tab: TabItem) => {
 
   .content-wrap {
     height: calc(100% - var(--tabbar-height));
-    padding: 0 10px;
+    padding: 0;
   }
 
   .content {
@@ -70,7 +81,7 @@ const onTabItemClick = (tab: TabItem) => {
 
     .title {
       position: relative;
-      margin: 0;
+      margin: 0 10px;
       padding: 15px 0 6px;
       font-size: 18px;
 
@@ -88,7 +99,6 @@ const onTabItemClick = (tab: TabItem) => {
 
     .body {
       @extend .s-scrollbar;
-      margin-top: 20px;
       height: calc(100% - 50px);
 
       img {

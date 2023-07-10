@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1903862",
+      "name": "web__比特币",
+      "font_class": "web__bitebi",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
       "icon_id": "21096868",
       "name": "vimeo",
       "font_class": "vimeo",
