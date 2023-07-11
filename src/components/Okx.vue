@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onUnmounted, ref, watch } from 'vue'
 import { createWebSocketClient } from '@/utils/webSocket'
+import { useStorageAsync } from '@vueuse/core'
 
 interface ListItemRaw {
   changePer: string
@@ -17,6 +18,7 @@ interface ListItem extends ListItemRaw {
   rankingChange?: number
   rankingChangeText?: string
   isFresh?: boolean
+  isFavorite?: boolean
 }
 
 
@@ -44,6 +46,8 @@ const ws = createWebSocketClient({
 });
 ws.connect()
 
+const favoriteList = useStorageAsync<string[]>('okx-favorite', [])
+
 const listRaw = ref<ListItemRaw[]>([])
 
 let oldList: ListItem[] = []
@@ -54,7 +58,8 @@ const list = computed<ListItem[]>(() => {
       ...item,
       name: item.instId.split('-')[0],
       changePerText: (Number(item.changePer) * 100).toFixed(2) + '%',
-      isFresh: false
+      isFresh: false,
+      isFavorite: favoriteList.value.includes(item.instId)
     }
 
     if (!oldList.length) return result
@@ -90,6 +95,14 @@ watch(() => list.value, (old) => {
   immediate: true
 })
 
+const onNameClick = (item: ListItem) => {
+  if (item.isFavorite) {
+    favoriteList.value = favoriteList.value.filter(fav => fav !== item.instId)
+  } else {
+    favoriteList.value = [...favoriteList.value, item.instId]
+  }
+}
+
 onUnmounted(() => {
   ws.close()
 })
@@ -102,7 +115,7 @@ onUnmounted(() => {
       <li v-for="(item, index) in list" class="okx-list__item">
         <span class="index" :class="`index-${index + 1}`">{{ index + 1 }}</span>
 
-        <span class="name">{{ item.name }}</span>
+        <span class="name" :class="{ 'name--favorite': item.isFavorite }" @click="onNameClick(item)">{{ item.name }}</span>
 
         <span class="last-price">{{ item.lastPrice }}</span>
 
@@ -173,6 +186,11 @@ onUnmounted(() => {
       .name {
         font-size: 14px;
         font-weight: bold;
+        cursor: pointer;
+
+        &--favorite {
+          color: yellow;
+        }
       }
 
       .last-price {
