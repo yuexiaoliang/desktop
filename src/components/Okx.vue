@@ -132,10 +132,9 @@ onUnmounted(() => {
 
 
         <div class="center">
-          <span v-if="item.wheelCount < wheelCount && item.wheelCount < 50" class="wheel-count">{{ wheelCount }} / {{
-            item.wheelCount }}</span>
-
-          <span v-if="item.isFresh" class="fresh">新</span>
+          <span v-if="item.wheelCount < wheelCount && item.wheelCount < 50" class="wheel-count"
+            :class="{ 'fresh': item.isFresh }">{{ wheelCount }} / {{
+              item.wheelCount }}</span>
 
           <span class="ranking-change"
             :class="{ 'ranking-change--up': item.rankingChange && item.rankingChange > 0, 'ranking-change--down': item.rankingChange && item.rankingChange < 0 }">
@@ -240,17 +239,16 @@ onUnmounted(() => {
         }
       }
 
-      .fresh {
-        margin-left: 10px;
-        color: yellow;
-        transform: scale(0.9);
-      }
-
       .wheel-count {
         margin-left: 10px;
         color: #c9c9c9;
         transform: scale(0.9);
+
+        &.fresh {
+          color: yellow;
+        }
       }
+
 
       .change-per {
         width: 60px;
