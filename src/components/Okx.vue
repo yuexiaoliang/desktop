@@ -14,13 +14,21 @@ interface ListItemRaw {
 
 interface ListItem extends ListItemRaw {
   name: string
+  // 涨跌幅文本
   changePerText: string
+  // 排名变化
   rankingChange?: number
+  // 排名变化文本
   rankingChangeText?: string
+  // 已经存在的轮次
+  wheelCount: number
+  // 是否是新的
   isFresh?: boolean
+  // 是否是收藏的
   isFavorite?: boolean
 }
 
+const wheelCount = ref(0)
 
 // 使用示例
 const ws = createWebSocketClient({
@@ -42,6 +50,7 @@ const ws = createWebSocketClient({
   message(data) {
     if (!data.data?.[0]?.utc8) return;
     listRaw.value = data.data[0].utc8
+    wheelCount.value += 1
   }
 });
 ws.connect()
@@ -59,7 +68,8 @@ const list = computed<ListItem[]>(() => {
       name: item.instId.split('-')[0],
       changePerText: (Number(item.changePer) * 100).toFixed(2) + '%',
       isFresh: false,
-      isFavorite: favoriteList.value.includes(item.instId)
+      isFavorite: favoriteList.value.includes(item.instId),
+      wheelCount: 1
     }
 
     if (!oldList.length) return result
@@ -67,9 +77,11 @@ const list = computed<ListItem[]>(() => {
     const oldItem = oldList.find(old => old.instId === item.instId)
 
     if (!oldItem) {
-      result.isFresh = true
       return result
     }
+
+    result.wheelCount = oldItem.wheelCount + 1
+    result.isFresh = result.wheelCount <= 5
 
     const oldIndex = oldList.indexOf(oldItem)
     const newIndex = listRaw.value.indexOf(item)
@@ -113,18 +125,25 @@ onUnmounted(() => {
     <ul class="okx-list">
 
       <li v-for="(item, index) in list" class="okx-list__item">
-        <span class="index" :class="`index-${index + 1}`">{{ index + 1 }}</span>
+        <div class="index" :class="`index-${index + 1}`">{{ index + 1 }}</div>
 
-        <span class="name" :class="{ 'name--favorite': item.isFavorite }" @click="onNameClick(item)">{{ item.name }}</span>
+        <div class="name" :class="{ 'name--favorite': item.isFavorite }" @click="onNameClick(item)">{{ item.name
+        }}</div>
 
-        <span class="last-price">{{ item.lastPrice }}</span>
+        <div class="last-price">{{ item.lastPrice }}</div>
 
-        <span class="ranking-change"
-          :class="{ 'ranking-change--up': item.rankingChange && item.rankingChange > 0, 'ranking-change--down': item.rankingChange && item.rankingChange < 0 }">{{
-            item.rankingChangeText
-          }}</span>
 
-        <span v-if="item.isFresh" class="fresh">新</span>
+        <div class="center">
+          <span v-if="item.wheelCount < wheelCount" class="wheel-count">{{ item.wheelCount }}</span>
+
+          <span v-if="item.isFresh" class="fresh">新</span>
+
+          <span class="ranking-change"
+            :class="{ 'ranking-change--up': item.rankingChange && item.rankingChange > 0, 'ranking-change--down': item.rankingChange && item.rankingChange < 0 }">
+            {{ item.rankingChangeText }}
+          </span>
+        </div>
+
 
         <span class="change-per">{{ item.changePerText }}</span>
       </li>
@@ -199,9 +218,15 @@ onUnmounted(() => {
         color: #999;
       }
 
-      .ranking-change {
+      .center {
+        display: flex;
         margin-left: auto;
         font-size: 12px;
+      }
+
+      .ranking-change {
+        width: 30px;
+        text-align: right;
 
         &--up {
           color: greenyellow;
@@ -219,10 +244,17 @@ onUnmounted(() => {
       .fresh {
         margin-left: 10px;
         color: yellow;
+        transform: scale(0.9);
+      }
+
+      .wheel-count {
+        margin-left: 10px;
+        color: #c9c9c9;
+        transform: scale(0.9);
       }
 
       .change-per {
-        width: 70px;
+        width: 60px;
         text-align: right;
         color: yellow;
       }
