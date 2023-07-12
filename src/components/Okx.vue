@@ -50,6 +50,8 @@ const ws = createWebSocketClient({
   message(data) {
     if (!data.data?.[0]?.utc8) return;
     listRaw.value = data.data[0].utc8
+
+    if (wheelCount.value > 5000) wheelCount.value = 0;
     wheelCount.value += 1
   }
 });
