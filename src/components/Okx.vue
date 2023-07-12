@@ -132,7 +132,8 @@ onUnmounted(() => {
 
 
         <div class="center">
-          <span v-if="item.wheelCount < 50" class="wheel-count">{{ wheelCount }} / {{ item.wheelCount }}</span>
+          <span v-if="item.wheelCount < wheelCount && item.wheelCount < 50" class="wheel-count">{{ wheelCount }} / {{
+            item.wheelCount }}</span>
 
           <span v-if="item.isFresh" class="fresh">新</span>
 
