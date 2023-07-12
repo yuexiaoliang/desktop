@@ -81,25 +81,23 @@ const list = computed<ListItem[]>(() => {
     }
 
     result.wheelCount = oldItem.wheelCount + 1
-    result.isFresh = result.wheelCount <= 5
+    result.isFresh = result.wheelCount < wheelCount.value && result.wheelCount <= 5
 
     const oldIndex = oldList.indexOf(oldItem)
     const newIndex = listRaw.value.indexOf(item)
 
     const rankingChange = oldIndex - newIndex
-    const rankingChangeText = rankingChange > 0 ? `↑ ${rankingChange}` : `↓ ${Math.abs(rankingChange)}`
+    const rankingChangeText = rankingChange ? rankingChange > 0 ? `↑ ${rankingChange}` : `↓ ${Math.abs(rankingChange)}` : ''
 
-    if (rankingChange) {
+    if (rankingChange !== oldItem.rankingChange) {
       result.rankingChange = rankingChange
       result.rankingChangeText = rankingChangeText
-    } else {
-      result.rankingChange = oldItem.rankingChange
-      result.rankingChangeText = oldItem.rankingChangeText
     }
 
     return result
   })
 })
+
 watch(() => list.value, (old) => {
   oldList = old
 }, {
@@ -134,7 +132,7 @@ onUnmounted(() => {
 
 
         <div class="center">
-          <span v-if="item.wheelCount < wheelCount" class="wheel-count">{{ item.wheelCount }}</span>
+          <span v-if="item.wheelCount < 50" class="wheel-count">{{ wheelCount }} / {{ item.wheelCount }}</span>
 
           <span v-if="item.isFresh" class="fresh">新</span>
 
