@@ -83,7 +83,7 @@ const list = computed<ListItem[]>(() => {
     }
 
     result.wheelCount = oldItem.wheelCount + 1
-    result.isFresh = result.wheelCount < wheelCount.value && result.wheelCount <= 5
+    result.isFresh = result.wheelCount < wheelCount.value && result.wheelCount <= 10
 
     const oldIndex = oldList.indexOf(oldItem)
     const newIndex = listRaw.value.indexOf(item)
@@ -123,8 +123,9 @@ onUnmounted(() => {
 <template>
   <div class="okx">
     <ul class="okx-list">
-
-      <li v-for="(item, index) in list" class="okx-list__item">
+      <li v-for="(item, index) in list" class="okx-list__item" :class="{
+        'okx-list__item--emphasis': item?.isFresh && index < 5
+      }">
         <div class="index" :class="`index-${index + 1}`">{{ index + 1 }}</div>
 
         <div class="name" :class="{ 'name--favorite': item.isFavorite }" @click="onNameClick(item)">{{ item.name
@@ -175,6 +176,7 @@ onUnmounted(() => {
       padding: 0 5px;
       border-radius: 4px;
       transition: background-color 0.1s ease;
+      border: 1px solid transparent;
 
       &:hover {
         background-color: #000;
@@ -251,11 +253,19 @@ onUnmounted(() => {
         }
       }
 
-
       .change-per {
         width: 60px;
         text-align: right;
         color: yellow;
+      }
+
+
+      &--emphasis {
+        border: 1px solid yellow;
+
+        .name {
+          color: yellow;
+        }
       }
     }
   }
