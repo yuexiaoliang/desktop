@@ -169,7 +169,7 @@ onUnmounted(() => {
     &__item {
       flex: 1;
       display: flex;
-      align-items: baseline;
+      align-items: center;
       align-content: center;
       flex-wrap: wrap;
       margin: 0;
@@ -263,8 +263,15 @@ onUnmounted(() => {
       &--emphasis {
         border: 1px solid yellow;
 
-        .name {
-          color: yellow;
+        .change-per {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: -5px;
+          height: 100%;
+          font-weight: bold;
+          background-color: yellow;
+          color: #000;
         }
       }
     }
