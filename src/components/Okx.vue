@@ -154,10 +154,34 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .okx {
+  position: relative;
   height: 100%;
   padding: 5px;
 
+  &::after {
+    content: '见好就收';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 180px;
+    color: #fff;
+    opacity: .02;
+    // 文字纵向
+    writing-mode: vertical-lr;
+    // 文字间隔
+    letter-spacing: 10px;
+  }
+
   &-list {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     height: 100%;
