@@ -12,7 +12,7 @@ interface TabItem {
   icon: string;
 }
 const tabList: TabItem[] = [
-  { title: 'OKX', type: 'okx', icon: 'web__bitebi' },
+  // { title: 'OKX', type: 'okx', icon: 'web__bitebi' },
   { title: 'VSCodeVim Command', type: 'vscodeVim', icon: 'vimeo' },
   { title: 'Git Command', type: 'git', icon: 'git' },
 ];
